@@ -1,6 +1,6 @@
-import ECommerce from "@/components/Dashboard/E-commerce";
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import UrlShortner from '@/components/Dashboard/Url-shorter';
 
 export const metadata: Metadata = {
   title:
@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <>
       <DefaultLayout>
-        <ECommerce />
+        <UrlShortner />
       </DefaultLayout>
     </>
   );

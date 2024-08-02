@@ -22,13 +22,13 @@ const SignUp: React.FC = () => {
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="px-26 py-17.5 text-center">
               <Link className="mb-5.5 inline-block" href="/">
-                <Image
+                {/* <Image
                   className="hidden dark:block"
                   src={"/images/logo/logo.svg"}
                   alt="Logo"
                   width={176}
                   height={32}
-                />
+                /> */}
                 <Image
                   className="dark:hidden"
                   src={"/images/logo/logo-dark.svg"}
