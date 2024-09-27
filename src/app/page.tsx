@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import UrlShortner from '@/components/Dashboard/Url-shorter';
+import UrlShortner from "@/components/Dashboard/Url-shorter";
+
 
 export const metadata: Metadata = {
   title:
