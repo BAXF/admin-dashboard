@@ -6,46 +6,39 @@ import Image from "next/image";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { signIn, useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
+import { stat } from "fs";
 
 const SignIn: React.FC = () => {
-  // const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
-  // let auth = {
-  //   isAuth: false,
-  //   name: null,
-  //   email: null,
-  //   image: null,
-  // };
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+  if (status === "authenticated") {
+    return redirect("/");
+  }
 
-  // if (session?.user) {
-  //   console.log("inja chi darim");
-  //   console.log(session);
-  //   auth = {
-  //     isAuth: true,
-  //     name: session.user.name,
-  //     email: session.user.email,
-  //     image: session.user.image,
-  //   };
-  // }
   const handleSignIn = async (formData) => {
     const email = formData.get("email");
     const password = formData.get("password");
-    // try {
-    //   const res = await signIn("credentials", {
-    //     email: email,
-    //     password: password,
-    //     redirect: false,
-    //   });
+    try {
+      const res = await signIn("credentials", {
+        email: email,
+        password: password,
+        redirect: false,
+      });
 
-    //   if (!res?.error) {
-    //     console.log("sucess");
-    //   } else {
-    //     console.log("Invalid Login !");
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
+      if (!res?.error) {
+        console.log("sucess");
+      } else {
+        console.log("Invalid Login !");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   return (
     <DefaultLayout>
       <div className="min-h-[48rem] rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -221,7 +214,7 @@ const SignIn: React.FC = () => {
                 </div>
 
                 <button
-                  onClick={() => signIn("google")}
+                  onClick={() => signIn("google", { callbackUrl: "/" })}
                   className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray p-4 hover:bg-opacity-50 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50"
                 >
                   <span>

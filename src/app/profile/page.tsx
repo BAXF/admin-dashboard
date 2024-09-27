@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 // export const metadata: Metadata = {
 //   title: "Next.js Profile | TailAdmin - Next.js Dashboard Template",
@@ -13,7 +14,7 @@ import { useSession } from "next-auth/react";
 // };
 
 const Profile = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   let auth = {
     isAuth: false,
@@ -31,6 +32,10 @@ const Profile = () => {
       email: session.user.email,
       image: session.user.image,
     };
+  }
+
+  if (status === "unauthenticated") {
+    return redirect("/auth/signin");
   }
   return (
     <DefaultLayout>
