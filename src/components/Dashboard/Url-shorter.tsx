@@ -30,12 +30,14 @@ const UrlShortner: React.FC = () => {
     setValue(event.target.value);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
     try {
+      e.preventDefault();
       const res = await fetch(`http://5.161.100.20:8080/shorten`, {
         method: "POST",
+        mode: 'cors',
         body: JSON.stringify({
-          Original: value,
+          Original: "google.com",
           userEmail: session?.user?.email,
         }),
       });
@@ -43,6 +45,7 @@ const UrlShortner: React.FC = () => {
       setShortenLink(data);
       console.log(data);
     } catch (err) {
+      console.log("inja")
       console.log(err);
     }
   };
@@ -60,13 +63,7 @@ const UrlShortner: React.FC = () => {
               placeholder="Enter your Url here ..."
               aria-label="Full url"
             />
-            <input
-              type="submit"
-              value="Submit"
-              className="flex-shrink-0 rounded border-4 border-teal-500 bg-teal-500 px-2 py-1 text-sm text-white hover:border-teal-700 hover:bg-teal-700"
-            >
-              Make it shorter!!!
-            </input>
+            <button onClick={(e)=>handleSubmit(e)}> Make it shorter!!!</button>
           </div>
         </form>
         <div className="mt-5 h-4 p-3">
